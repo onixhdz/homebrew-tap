@@ -62,12 +62,27 @@ def extract_existing_value(formula_text: str, field: str, default: str) -> str:
     return match.group(1) if match else default
 
 
+def extract_repository(formula_text: str, formula: str) -> str:
+    homepage = extract_existing_value(formula_text, "homepage", "")
+    if homepage:
+        match = re.match(r"^https://github\.com/([^/]+/[^/]+)/?$", homepage)
+        if match:
+            return match.group(1)
+
+    url = extract_existing_value(formula_text, "url", "")
+    if url:
+        match = re.match(r"^https://github\.com/([^/]+/[^/]+)/releases/download/", url)
+        if match:
+            return match.group(1)
+
+    die(f"could not infer GitHub repository from Formula/{formula}.rb")
+
+
 def main() -> int:
-    if len(sys.argv) != 3:
-        die(f"usage: {sys.argv[0]} <formula> <owner/repo>")
+    if len(sys.argv) != 2:
+        die(f"usage: {sys.argv[0]} <formula>")
 
     formula = sys.argv[1]
-    repository = sys.argv[2]
 
     script_dir = Path(__file__).resolve().parent
     repo_root = script_dir.parent
@@ -76,6 +91,11 @@ def main() -> int:
 
     if not template_path.is_file():
         die(f"formula template not found: {template_path}")
+    if not formula_path.is_file():
+        die(f"formula not found: {formula_path}")
+
+    formula_text = formula_path.read_text(encoding="utf-8")
+    repository = extract_repository(formula_text, formula)
 
     release_text = fetch_text(f"https://api.github.com/repos/{repository}/releases/latest")
     release_json = json.loads(release_text)
@@ -90,10 +110,8 @@ def main() -> int:
 
     desc = f"{formula} CLI"
     license_name = "MIT"
-    if formula_path.is_file():
-        formula_text = formula_path.read_text(encoding="utf-8")
-        desc = extract_existing_value(formula_text, "desc", desc)
-        license_name = extract_existing_value(formula_text, "license", license_name)
+    desc = extract_existing_value(formula_text, "desc", desc)
+    license_name = extract_existing_value(formula_text, "license", license_name)
 
     macos_intel_block = ""
     if darwin_amd64_sha:

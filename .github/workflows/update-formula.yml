@@ -7,10 +7,6 @@ on:
         description: Formula name
         required: true
         default: cartograph
-      repository:
-        description: GitHub repo in owner/name form
-        required: true
-        default: realxen/cartograph
 
 permissions:
   contents: write
@@ -22,7 +18,7 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Update formula
-        run: python3 ./scripts/update-formula.py "${{ inputs.formula }}" "${{ inputs.repository }}"
+        run: python3 ./scripts/update-formula.py "${{ inputs.formula }}"
 
       - name: Commit formula update
         run: |

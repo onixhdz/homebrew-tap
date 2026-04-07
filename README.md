@@ -23,13 +23,14 @@ Formula/
 ## Release automation
 
 After publishing a GitHub release, run the `Update formula` workflow manually.
-It fetches the latest release from the target repository, downloads
-`checksums-sha256.txt`, and updates the formula automatically.
+It reads the GitHub repository from the existing formula, fetches the latest
+release, downloads `checksums-sha256.txt`, and updates the formula
+automatically.
 
 You can also run the updater locally:
 
 ```bash
-python3 ./scripts/update-formula.py cartograph realxen/cartograph
+python3 ./scripts/update-formula.py cartograph
 ```
 
 ## Current formulae
