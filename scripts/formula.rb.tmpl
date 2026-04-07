@@ -27,10 +27,24 @@ __MACOS_INTEL_BLOCK__
   end
 
   def install
-    bin.install Dir["__FORMULA__*"].first => "__FORMULA__"
+    binary_name =
+      if OS.mac?
+        Hardware::CPU.arm? ? "__FORMULA__-darwin-arm64" : "__FORMULA__-darwin-amd64"
+      elsif OS.linux?
+        Hardware::CPU.arm? ? "__FORMULA__-linux-arm64" : "__FORMULA__-linux-amd64"
+      else
+        odie "unsupported platform"
+      end
+
+    bin.install binary_name => "__FORMULA__"
+    (buildpath/"__FORMULA__.bash").write <<~BASH
+      complete -o default -o bashdefault -C #{opt_bin}/__FORMULA__ __FORMULA__
+    BASH
+    bash_completion.install buildpath/"__FORMULA__.bash" => "__FORMULA__"
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/__FORMULA__ -v")
+    assert_match "complete -o default", shell_output("#{bin}/__FORMULA__ completion -c bash")
   end
 end

@@ -31,10 +31,24 @@ class Cartograph < Formula
   end
 
   def install
-    bin.install Dir["cartograph*"].first => "cartograph"
+    binary_name =
+      if OS.mac?
+        Hardware::CPU.arm? ? "cartograph-darwin-arm64" : "cartograph-darwin-amd64"
+      elsif OS.linux?
+        Hardware::CPU.arm? ? "cartograph-linux-arm64" : "cartograph-linux-amd64"
+      else
+        odie "unsupported platform"
+      end
+
+    bin.install binary_name => "cartograph"
+    (buildpath/"cartograph.bash").write <<~BASH
+      complete -o default -o bashdefault -C #{opt_bin}/cartograph cartograph
+    BASH
+    bash_completion.install buildpath/"cartograph.bash" => "cartograph"
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/cartograph -v")
+    assert_match "complete -o default", shell_output("#{bin}/cartograph completion -c bash")
   end
 end

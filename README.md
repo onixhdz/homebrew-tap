@@ -12,6 +12,9 @@ Example install flow:
 brew install realxen/tap/cartograph
 ```
 
+Homebrew installs Cartograph's bash completion automatically as part of the
+formula install.
+
 ## Expected layout
 
 ```text
@@ -24,7 +27,7 @@ Formula/
 After publishing a GitHub release, run the `Update formula` workflow manually.
 It reads the GitHub repository from the existing formula, fetches the latest
 release, downloads `checksums-sha256.txt`, and updates the formula
-automatically.
+automatically while preserving the built-in completion install logic.
 
 You can also run the updater locally:
 
