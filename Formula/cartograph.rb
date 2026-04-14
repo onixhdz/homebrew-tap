@@ -1,32 +1,32 @@
 class Cartograph < Formula
   desc "Build a nervous system for your codebase"
   homepage "https://github.com/realxen/cartograph"
-  url "https://github.com/realxen/cartograph/releases/download/v0.1.0/cartograph-darwin-arm64"
-  version "0.1.0"
-  sha256 "b5e37e4be6a62e0c4babc70afdd1fb33e3df2a1d08e113367517c1da78499c9d"
+  url "https://github.com/realxen/cartograph/releases/download/v0.1.2/cartograph-darwin-arm64"
+  version "0.1.2"
+  sha256 "484c47767d9fd196c6bc41c6fd58b68c31f77c688a727bedf21c032e955bccea"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/realxen/cartograph/releases/download/v0.1.0/cartograph-darwin-arm64"
-      sha256 "b5e37e4be6a62e0c4babc70afdd1fb33e3df2a1d08e113367517c1da78499c9d"
+      url "https://github.com/realxen/cartograph/releases/download/v0.1.2/cartograph-darwin-arm64"
+      sha256 "484c47767d9fd196c6bc41c6fd58b68c31f77c688a727bedf21c032e955bccea"
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/realxen/cartograph/releases/download/v0.1.0/cartograph-darwin-amd64"
-      sha256 "c4db1ae46568c8ff303a0499a06ce71a43ce2d4d7e2ab54653941feafedf972c"
+      url "https://github.com/realxen/cartograph/releases/download/v0.1.2/cartograph-darwin-amd64"
+      sha256 "a636c7af354e3ad4821244b276c1dd57cf8b3cb26321f0902f5d23d1f372cbca"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/realxen/cartograph/releases/download/v0.1.0/cartograph-linux-amd64"
-      sha256 "1494a85b153c549ad9461c5aa9102265921688c34d307997f68475dcb08adbfc"
+      url "https://github.com/realxen/cartograph/releases/download/v0.1.2/cartograph-linux-amd64"
+      sha256 "da36ff74877190b1246c0b113c38416cb32a3139cf07bf505ad70fcb8215579e"
     end
 
     if Hardware::CPU.arm?
-      url "https://github.com/realxen/cartograph/releases/download/v0.1.0/cartograph-linux-arm64"
-      sha256 "82f0b4b8e8f6cb163319d9f9e8e7fec24a785a44a6db5643c4a88655414f4068"
+      url "https://github.com/realxen/cartograph/releases/download/v0.1.2/cartograph-linux-arm64"
+      sha256 "ef9399770cc124f87a0fa11f4bd3df9b4850a46ae875338cb261eaf96dec56cc"
     end
   end
 
@@ -45,10 +45,6 @@ class Cartograph < Formula
       complete -o default -o bashdefault -C #{opt_bin}/cartograph cartograph
     BASH
     bash_completion.install buildpath/"cartograph.bash" => "cartograph"
-  end
-
-  def post_install
-    system bin/"cartograph", "skills", "install", "--upgrade"
   end
 
   test do
