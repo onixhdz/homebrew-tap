@@ -1,32 +1,32 @@
 class Cartograph < Formula
   desc "Build a nervous system for your codebase"
   homepage "https://github.com/realxen/cartograph"
-  url "https://github.com/realxen/cartograph/releases/download/v0.1.5/cartograph-darwin-arm64"
-  version "0.1.5"
-  sha256 "482828c64f956ea0d0c3b856c2bbf0f56b082e1f60b1e482b6a337eaf919aa97"
+  url "https://github.com/realxen/cartograph/releases/download/v0.1.6/cartograph-darwin-arm64"
+  version "0.1.6"
+  sha256 "f896377cb0f615c15933f3d2beb0298c87c5d684af4f9eafa88bd20dd9af89a9"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/realxen/cartograph/releases/download/v0.1.5/cartograph-darwin-arm64"
-      sha256 "482828c64f956ea0d0c3b856c2bbf0f56b082e1f60b1e482b6a337eaf919aa97"
+      url "https://github.com/realxen/cartograph/releases/download/v0.1.6/cartograph-darwin-arm64"
+      sha256 "f896377cb0f615c15933f3d2beb0298c87c5d684af4f9eafa88bd20dd9af89a9"
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/realxen/cartograph/releases/download/v0.1.5/cartograph-darwin-amd64"
-      sha256 "1c99d5a63146355f193ba36edf8b8401d7c7f261d161ca995cf3cec4f3aa8906"
+      url "https://github.com/realxen/cartograph/releases/download/v0.1.6/cartograph-darwin-amd64"
+      sha256 "65f1ce39c5ec63bd1628cd0cdbce8548ed42233394f878f89b54c6ad3abe05be"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
-      url "https://github.com/realxen/cartograph/releases/download/v0.1.5/cartograph-linux-amd64"
-      sha256 "6f9b1f5fa77fed995a4c60304ab1d0c3bfefacb69fcbf6a8033f2c58f4fd7d57"
+      url "https://github.com/realxen/cartograph/releases/download/v0.1.6/cartograph-linux-amd64"
+      sha256 "b38a372a804e551b8e7f3d8fd239957496992f94223764ce5bb4958fe6f69058"
     end
 
     if Hardware::CPU.arm?
-      url "https://github.com/realxen/cartograph/releases/download/v0.1.5/cartograph-linux-arm64"
-      sha256 "f5bbd398ec33084f0328ebaeb628a1d67e591cf5ee4b9b9f92219ebcbd6c9a2b"
+      url "https://github.com/realxen/cartograph/releases/download/v0.1.6/cartograph-linux-arm64"
+      sha256 "8caa819bc50368724fdafe0ad8ac910fa94327061f78768cb715f7bbe04fa8bf"
     end
   end
 
