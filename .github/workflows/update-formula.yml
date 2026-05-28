@@ -1,6 +1,8 @@
 name: Update formula
 
 on:
+  repository_dispatch:
+    types: [formula-update]
   workflow_dispatch:
     inputs:
       formula:
@@ -17,8 +19,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Resolve formula name
+        id: resolve
+        run: echo "formula=${{ github.event.client_payload.formula || inputs.formula || '' }}" >> "$GITHUB_OUTPUT"
+
       - name: Update formula
-        run: python3 ./scripts/update-formula.py "${{ inputs.formula }}"
+        if: steps.resolve.outputs.formula != ''
+        run: python3 ./scripts/update-formula.py "${{ steps.resolve.outputs.formula }}"
 
       - name: Commit formula update
         run: |
