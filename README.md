@@ -1,6 +1,6 @@
 # homebrew-tap
 
-Shared Homebrew tap for realxen command-line tools.
+Shared Homebrew tap for onixhdz command-line tools.
 
 ## Purpose
 
@@ -9,7 +9,7 @@ This repository hosts custom Homebrew formulae under `Formula/`.
 Example install flow:
 
 ```bash
-brew install realxen/tap/cartograph
+brew install onixhdz/tap/cartograph
 ```
 
 Homebrew installs Cartograph's bash completion automatically as part of the
